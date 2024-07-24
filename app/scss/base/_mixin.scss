@@ -1,0 +1,373 @@
+
+@mixin transition($property: all, $speed: $speed, $time-function: $time-function) {
+  transition-property: $property;
+  transition-duration: $speed;
+  transition-timing-function: $time-function;
+}
+
+/* FONT SourceSansPro */
+//@mixin fl {font-family: 'Montserrat-Light',sans-serif;}
+//@mixin fr {font-family: 'Montserrat-Regular',sans-serif;}
+//@mixin fm {font-family: 'Montserrat-Medium',sans-serif;}
+//@mixin fdb {font-family: 'Montserrat-SemiBold',sans-serif;}
+//@mixin fb {font-family: 'Montserrat-Bold',sans-serif;}
+
+/*images*/
+
+@mixin cover {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%; }
+
+
+@mixin absolute-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@mixin absolute-centerX {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin absolute-centerY {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*=======================START-MEDIA=====================*/
+@mixin media($width) {
+  @media only screen and (max-width: $width+ "px") {
+    @content; } }
+
+@mixin min-media($width) {
+  @media only screen and (min-width: $width+ "px") {
+    @content; } }
+
+/*=======================END-MEDIA=====================*/
+//placeholder
+@mixin placeholder {
+  &::-webkit-input-placeholder { @content; }
+  &:-moz-placeholder           { @content; }
+  &::-moz-placeholder          { @content; }
+  &:-ms-input-placeholder      { @content; }
+}
+
+// font size
+
+@mixin css-lock($min-size: 1, $max-size: 1.4, $min-width: 20, $max-width: 100, $property: font-size, $unit: px) {
+  #{$property}: #{$max-size}#{$unit};
+  #{$property}: calc(#{$min-size}#{$unit} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-width}#{$unit}) / (#{$max-width} - #{$min-width})));
+  @media (max-width: #{$min-width}#{$unit}) {
+    #{$property}: #{$min-size}#{$unit}; }
+  @media (min-width: #{$max-width}#{$unit}) {
+    #{$property}: #{$max-size}#{$unit}; } }
+
+@function decimal-round($number, $digits: 0, $mode: round) {
+  $n: 1;
+  // $number must be a number
+  @if type-of($number) != number {
+    @warn '#{ $number } is not a number.';
+    @return $number;
+  }
+  // $digits must be a unitless number
+  @if type-of($digits) != number {
+    @warn '#{ $digits } is not a number.';
+    @return $number;
+  } @else if not unitless($digits) {
+    @warn '#{ $digits } has a unit.';
+    @return $number;
+  }
+  @if $digits > 0 {
+    @for $i from 1 through $digits {
+      $n: $n * 10;
+    }
+  }
+  @if $mode == round {
+    @return round($number * $n) / $n;
+  } @else if $mode == ceil {
+    @return ceil($number * $n) / $n;
+  } @else if $mode == floor {
+    @return floor($number * $n) / $n;
+  } @else {
+    @warn '#{ $mode } is undefined keyword.';
+    @return $number;
+  }
+}
+
+@mixin font-settings($font-size, $light-height, $round-light-height: 2) {
+  font-size: $font-size + px;
+  line-height: decimal-round($light-height / $font-size, $round-light-height);
+}
+
+// end font size
+
+
+/* media breakpoint mixin */
+@mixin media-breakpoint-up($name) {
+  @if map_has_key($breakpoint, $name) {
+    @media (min-width: map_get($breakpoint, $name)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $name) {
+      @content;
+    }
+  }
+}
+
+@mixin multi-transition($speed: $speed, $time-function: $time-function, $properties-list...) {
+  transition-duration: $speed;
+  transition-timing-function: $time-function;
+  transition-property: $properties-list;
+}
+
+@mixin size($width, $height: $width) {
+  width: $width + px;
+  height: $height + px;
+}
+
+@mixin total-width($width) {
+  min-width: $width + px;
+  max-width: $width + px;
+}
+
+@mixin total-height($height) {
+  min-width: $heigh + px;
+  max-width: $heigh + px;
+}
+
+// fonts
+@mixin font($weight, $style, $fontName, $fileName, $folderName: $fontName) {
+  @font-face {
+    font-family: #{$fontName};
+    font-display: swap;
+    src: url("../fonts/#{$folderName}/#{$fileName}.woff") format("woff"),
+         url("../fonts/#{$folderName}/#{$fileName}.woff2") format("woff2");
+    font-weight: #{$weight};
+    font-style: #{$style};
+  }
+}
+
+// hover
+@mixin hover($properties: all, $speed: $speed, $time-function: $time-function) {
+  transition-timing-function: $time-function;
+  transition-duration: $speed;
+  transition-property: $properties;
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// hide
+@mixin none() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+// gap
+@mixin gap($property, $value) {
+  @if $property == column {
+    @supports (column-gap: $value) {
+      column-gap: $value;
+    }
+    @supports not (column-gap: $value) {
+      margin-right: calc( 0px - (#{$value} / 2));
+      margin-left: calc( 0px - (#{$value} / 2));
+      & > * {
+        margin-right: calc(#{$value} / 2);
+        margin-left: calc(#{$value} / 2);
+      }
+    }
+  } @else if $property == row {
+    @supports (row-gap: $value) {
+      row-gap: $value;
+    }
+    @supports not (row-gap: $value) {
+      & {
+        margin-top: -$value;
+      }
+      & > * {
+        margin-top: $value;
+      }
+    }
+  } @else if $property == gap {
+    @supports (gap: $value) {
+      gap: $value;
+    }
+    @supports not (gap: $value) {
+      margin-right: calc(0px - (#{$value} / 2));
+      margin-left: calc(0px - (#{$value} / 2));
+      margin-top: -$value;
+      & > * {
+        margin-right: calc(#{$value} / 2);
+        margin-left: calc(#{$value} / 2);
+        margin-top: $value;
+      }
+    }
+  }
+}
+
+// supports
+@mixin supports($property, $value) {
+  @supports ($property: $value) {
+    #{$property}: $value;
+  }
+  @supports not ($property: $value) {
+    @content;
+  }
+}
+
+// grid
+@mixin grid-col($column) {
+  &__col-#{$column} {
+    grid-template-columns: repeat(#{$column}, 1fr);
+  }
+}
+
+// flex-basis
+@mixin flex-basis-responsive($number, $gap, $item) {
+  flex-basis: calc((100% - #{$number} * #{$gap}) / #{$item});
+}
+
+@mixin line-clamp($clamp, $height: none) {
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  max-height: $height;
+  overflow: hidden;
+}
+
+//@mixin gap($value-column, $value-row: $value-column) {
+//  @if $value-row == 0 {
+//    & {
+//      margin-right: calc( 0px - (#{$value-column} / 2));
+//      margin-left: calc( 0px - (#{$value-column} / 2));
+//    }
+//    & > * {
+//      margin-right: calc(#{$value-column} / 2);
+//      margin-left: calc(#{$value-column} / 2);
+//    }
+//  }
+//  @else if $value-column == 0 {
+//    & {
+//      margin-top: -$value-row;
+//    }
+//    & > * {
+//      margin-top: $value-row;
+//    }
+//  }
+//  @else {
+//    & {
+//      margin-left: calc(0px - #{$value-column} / 2);
+//      margin-right: calc(0px - #{$value-column} / 2);
+//      margin-top: -$value-row;
+//    }
+//    & > * {
+//      margin-left: calc(#{$value-column} / 2);
+//      margin-right: calc(#{$value-column} / 2);
+//      margin-top: $value-row;
+//    }
+//  }
+//}
+
+@function decimal-round($number, $digits: 0, $mode: round) {
+  $n: 1;
+  // $number must be a number
+  @if type-of($number) != number {
+    @warn '#{ $number } is not a number.';
+    @return $number;
+  }
+  // $digits must be a unitless number
+  @if type-of($digits) != number {
+    @warn '#{ $digits } is not a number.';
+    @return $number;
+  } @else if not unitless($digits) {
+    @warn '#{ $digits } has a unit.';
+    @return $number;
+  }
+  @if $digits > 0 {
+    @for $i from 1 through $digits {
+      $n: $n * 10;
+    }
+  }
+  @if $mode == round {
+    @return round($number * $n) / $n;
+  } @else if $mode == ceil {
+    @return ceil($number * $n) / $n;
+  } @else if $mode == floor {
+    @return floor($number * $n) / $n;
+  } @else {
+    @warn '#{ $mode } is undefined keyword.';
+    @return $number;
+  }
+}
+
+@mixin transform-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+@mixin transformY-center {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+@mixin transformX-center {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+%link {
+  position: relative;
+  display: inline-block;
+  &:after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+    height: 1px;
+    bottom: 1px;
+    left: 0px;
+    width: 100%;
+    transition: inherit;
+  }
+  @include hover {
+    &:after {
+      transform: scaleX(0);
+    }
+  }
+}
+%is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+%is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+%card-row {
+  display: flex;
+  flex-direction: column;
+  @include min-media(1200) {
+    flex-direction: row;
+  }
+}

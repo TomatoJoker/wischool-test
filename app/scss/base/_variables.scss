@@ -1,0 +1,23 @@
+// Colors
+$light: #fff;
+$black: #000;
+$transparent: rgba(255, 255, 255, 0);
+$silver: #fdfdfd;
+$silver-light: #f2f4f3;
+$silver-dark: #25384733;
+$primary: #253847;
+
+$speed: 300ms;
+$time-function: ease-in-out;
+
+:root {
+  --speed: #{$speed};
+  --time-function: #{$time-function};
+  --vh: 1vh;
+}
+
+//layout
+$padding: 20px;
+$desktop-width: 1642px;
+$site-container: $desktop-width + ($padding * 2);
+

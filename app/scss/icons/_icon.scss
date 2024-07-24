@@ -1,0 +1,44 @@
+.icon {
+  display: inline-block;
+  fill: currentColor;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family:"icomoon" !important;
+  speak:never;
+  font-style:normal;
+  font-weight:normal;
+  font-variant:normal;
+  text-transform:none;
+  line-height:1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale
+}
+.icon-search:before {
+  content:""
+}
+.icon-false:before {
+  content:""
+}
+.icon-arrow-left:before {
+  content:""
+}
+.icon-arrow-right:before {
+  content:""
+}
+.icon-twitter:before {
+  content:""
+}
+.icon-pinterest:before {
+  content:""
+}
+.icon-facebook:before {
+  content:""
+}
+.icon-instagram:before {
+  content:""
+}
+.icon-linkedin:before {
+  content:""
+}

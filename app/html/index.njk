@@ -1,0 +1,15 @@
+{% set title = 'Home' %}
+{% set stylePage = 'home' %}
+{% set stylesVendor = ['your-name-vendor-style-name'] %} {#include style vendor#}
+{% extends 'layouts/layout.njk' %}
+{% block content %}
+    <div class="wrapper">
+        {% include 'components/header.njk' %}
+        <main class="main">
+            <div class="container">
+                Start
+            </div>
+        </main>
+        {% include 'components/footer.njk' %}
+    </div>
+{% endblock %}

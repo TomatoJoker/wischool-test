@@ -1,0 +1,41 @@
+.hero {
+  display: flex;
+  height: calc(100 * var(--vh));
+  .container,
+  &__inner {
+    display: flex;
+    height: 100%;
+  }
+  &__inner {
+    align-items: center;
+    position: relative;
+  }
+  &__title {
+    font-weight: 400;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &__button {
+    font-weight: 500;
+    @include transformX-center;
+    bottom: 30px;
+    @include font-settings(12, 16);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    @include hover {
+      transform: translate(-50%, -5px);
+    }
+    .icon {
+      margin-top: 5px;
+      transform: rotate(90deg);
+      height: 13px;
+      width: 7px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
