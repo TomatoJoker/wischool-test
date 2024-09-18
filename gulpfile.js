@@ -55,7 +55,7 @@ exports.html = html;
 // Styles
 
 const style = () => {
-  return gulp.src('app/sass/**/*.scss')
+  return gulp.src('app/scss/**/*.scss')
       .pipe(plumber())
       .pipe(sourceMaps.init())
       .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
@@ -66,7 +66,7 @@ const style = () => {
 exports.style = style;
 
 const styleMin = () => {
-    return gulp.src('app/sass/**/*.scss')
+    return gulp.src('app/scss/**/*.scss')
         .pipe(plumber())
         .pipe(sourceMaps.init())
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
@@ -129,7 +129,7 @@ const copy = () => {
   return gulp.src([
     'app/fonts/**/*',
     'app/images/**/*',
-    'app/sass/**/*',
+    'app/scss/**/*',
     'app/i/**/*',
   ], {
     base: 'app'
@@ -147,7 +147,7 @@ exports.copy = copy;
 
 const server = () => {
   let files = [
-    'app/sass/**/*.scss'
+    'app/scss/**/*.scss'
   ]
   sync.init(files,{
     ui: false,
@@ -163,7 +163,7 @@ exports.server = server;
 // Watch
 const watch = () => {
   gulp.watch('app/html/**/*.+(html|njk|twig)', gulp.series(html));
-  gulp.watch('app/sass/**/*.scss', gulp.series(style, styleMin));
+  gulp.watch('app/scss/**/*.scss', gulp.series(style, styleMin));
   gulp.watch('app/js/**/*.js', gulp.series(js));
   gulp.watch([
     'app/fonts/**/*',
