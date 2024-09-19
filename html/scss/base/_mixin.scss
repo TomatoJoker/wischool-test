@@ -5,13 +5,6 @@
   transition-timing-function: $time-function;
 }
 
-/* FONT SourceSansPro */
-//@mixin fl {font-family: 'Montserrat-Light',sans-serif;}
-//@mixin fr {font-family: 'Montserrat-Regular',sans-serif;}
-//@mixin fm {font-family: 'Montserrat-Medium',sans-serif;}
-//@mixin fdb {font-family: 'Montserrat-SemiBold',sans-serif;}
-//@mixin fb {font-family: 'Montserrat-Bold',sans-serif;}
-
 /*images*/
 
 @mixin cover {
@@ -117,7 +110,7 @@
   }
 }
 
-@mixin multi-transition($speed: $speed, $time-function: $time-function, $properties-list...) {
+@mixin multi-transition($properties-list...) {
   transition-duration: $speed;
   transition-timing-function: $time-function;
   transition-property: $properties-list;
@@ -151,10 +144,7 @@
 }
 
 // hover
-@mixin hover($properties: all, $speed: $speed, $time-function: $time-function) {
-  transition-timing-function: $time-function;
-  transition-duration: $speed;
-  transition-property: $properties;
+@mixin hover() {
   @media (any-hover: hover) {
     &:hover {
       @content;
@@ -237,8 +227,8 @@
 }
 
 // flex-basis
-@mixin flex-basis-responsive($number, $gap, $item) {
-  flex-basis: calc((100% - #{$number} * #{$gap}) / #{$item});
+@mixin flex-basis-responsive($item, $gap) {
+  flex-basis: calc((100% - #{$item - 1} * #{$gap}) / #{$item});
 }
 
 @mixin line-clamp($clamp, $height: none) {
@@ -353,11 +343,13 @@
     }
   }
 }
+
 %is-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
+
 %is-visible {
   opacity: 1;
   pointer-events: auto;

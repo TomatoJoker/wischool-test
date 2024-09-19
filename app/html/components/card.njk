@@ -1,0 +1,6 @@
+{% macro card(title) %}
+    <div>
+        <h3>{{ title }}</h3>
+        {{ caller() }}
+    </div>
+{% endmacro %}

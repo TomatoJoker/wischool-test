@@ -1,0 +1,9 @@
+{% macro menu(arr) %}
+    <ul class="menu">
+        {% for menuItem in arr %}
+            <li class="menu-item">
+                <a href="#">{{ menuItem }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

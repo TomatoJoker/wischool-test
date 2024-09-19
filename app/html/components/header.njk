@@ -1,0 +1,9 @@
+{% import "components/menu.njk" as macros %}
+{% set menu = macros.menu %}
+{% set menuData = ['Shop', 'About'] %}
+
+<header>
+    <div class="container">
+        {{ menu(menuData) }}
+    </div>
+</header>

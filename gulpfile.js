@@ -1,5 +1,5 @@
 const gulp = require('gulp'),
-    babel = require('gulp-babel'),
+    // babel = require('gulp-babel'),
     prefix = require('gulp-autoprefixer'),
     sass = require('gulp-sass'),
     cleanCSS = require('gulp-clean-css'),
@@ -14,7 +14,12 @@ const gulp = require('gulp'),
     data = require('gulp-data'),
     removeEmptyLines = require('gulp-remove-empty-lines'),
     htmlbeautify = require('gulp-html-beautify'),
-    reload = sync.reload;
+    svgSprite = require('gulp-svg-sprite'),
+    cheerio = require('gulp-cheerio'),
+    clean = require('gulp-clean'),
+    reload = sync.reload,
+    src = 'app',
+    dist = 'html';
 
 // --------------------------------------------If you need icon fonts
 // const iconfont = require('gulp-iconfont'),
@@ -22,10 +27,10 @@ const gulp = require('gulp'),
 //     fontName = 'Icons';
 
 // const iconFonts = () => {
-//   return gulp.src(['app/i/icons/*.svg'])
+//   return gulp.src([`${src}/i/icons/*.svg`])
 //       .pipe(iconfontCss({
 //         fontName: fontName,
-//         path: 'app/sass/iconfont/_icons.scss',
+//         path: `${src}/sass/iconfont/_icons.scss`,
 //         targetPath: '../sass/icons/_icons.scss',
 //         fontPath: '../fonts/'
 //       }))
@@ -36,24 +41,59 @@ const gulp = require('gulp'),
 //         fontHeight: 1001,
 //         centerHorizontally: true
 //       }))
-//       .pipe(gulp.dest('app/fonts/'));
+//       .pipe(gulp.dest(`${src}/fonts/`));
 // };
 //
 // exports.iconFonts = iconFonts;
+
+
+const sprite = () => {
+    const options = {
+        indentSize: 2
+    };
+    const config = {
+        mode: {
+            symbol: {
+                dest: 'sprite',
+                sprite: 'sprite.svg'
+            }
+        },
+        shape: {
+            transform: [
+                {
+                    svgo: false
+                }
+            ]
+        }
+    };
+    return gulp.src(`${src}/images/icons/*.svg`)
+        .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('[stroke]').removeAttr('stroke');
+            },
+            parserOptions: { xmlMode: true }
+        }))
+        .pipe(svgSprite(config))
+        .pipe(htmlbeautify(options))
+        .pipe(gulp.dest(`${dist}/`)); // шлях для збереження спрайта
+}
+
+exports.sprite = sprite;
 
 // html task
 const html = () => {
     const options = {
         indentSize: 2
     };
-    return gulp.src('app/html/*.+(html|njk|twig)')
+    return gulp.src(`${src}/html/*.+(html|njk|twig)`)
         .pipe(data(function () {
-            return require('./app/html/data/data.json')
+            return require(`./${src}/html/data/data.json`)
         }))
         .pipe(nunjucks.compile())
         .pipe(htmlbeautify(options))
         .pipe(removeEmptyLines())
-        .pipe(gulp.dest('./html'))
+        .pipe(gulp.dest(`${dist}`))
         .pipe(reload({stream: true}));
 }
 
@@ -62,18 +102,18 @@ exports.html = html;
 // Styles
 
 const style = () => {
-    return gulp.src('app/scss/**/*.scss')
+    return gulp.src(`${src}/scss/**/*.scss`)
         .pipe(plumber())
         .pipe(sourceMaps.init())
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
         .pipe(prefix('last 10 versions'))
         .pipe(sourceMaps.write('/'))
-        .pipe(gulp.dest('html/css/'))
+        .pipe(gulp.dest(`${dist}/css/`))
 };
 exports.style = style;
 
 const styleMin = () => {
-    return gulp.src('app/scss/**/*.scss')
+    return gulp.src(`${src}/scss/**/*.scss`)
         .pipe(plumber())
         .pipe(sourceMaps.init())
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
@@ -81,7 +121,7 @@ const styleMin = () => {
         .pipe(cleanCSS())
         .pipe(rename({suffix: '.min'}))
         .pipe(sourceMaps.write('/'))
-        .pipe(gulp.dest('html/css/'))
+        .pipe(gulp.dest(`${dist}/css/`))
         .pipe(reload({stream: true}));
 };
 exports.styleMin = styleMin;
@@ -96,7 +136,7 @@ exports.styleMin = styleMin;
 //       ]
 //   )
 //       .pipe(cleanCSS())
-//       .pipe(gulp.dest('html/css/vendors/'));
+//       .pipe(gulp.dest(`${dist}/css/vendors/`));
 // };
 // exports.styleLibs = styleLibs;
 
@@ -104,15 +144,15 @@ exports.styleMin = styleMin;
 // Scripts
 
 const js = () => {
-    return gulp.src('app/js/*.js')
-        .pipe(babel({
-            presets: ['@babel/preset-env']
-        }))
+    return gulp.src(`${src}/js/*.js`)
+        // .pipe(babel({
+        //     presets: ['@babel/preset-env']
+        // }))
         .pipe(plumber())
-        .pipe(gulp.dest('html/js/'))
+        .pipe(gulp.dest(`${dist}/js/`))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('html/js/'))
+        .pipe(gulp.dest(`${dist}/js/`))
         .pipe(reload({stream: true}));
 };
 
@@ -125,7 +165,7 @@ exports.js = js;
 //         'node_modules/jquery/dist/jquery.min.js',
 //       ]
 //   )
-//       .pipe(gulp.dest('html/js/'));
+//       .pipe(gulp.dest(`${dist}/js/`));
 // };
 //
 // exports.jsLibs = jsLibs;
@@ -134,14 +174,14 @@ exports.js = js;
 
 const copy = () => {
     return gulp.src([
-        'app/fonts/**/*',
-        'app/images/**/*',
-        'app/scss/**/*',
-        'app/i/**/*',
+        `${src}/fonts/**/*`,
+        `${src}/images/**/*`,
+        `${src}/scss/**/*`,
+        `${src}/i/**/*`,
     ], {
         base: 'app'
     })
-        .pipe(gulp.dest('html'))
+        .pipe(gulp.dest(`${dist}`))
         .pipe(sync.stream({
             once: true
         }));
@@ -149,18 +189,24 @@ const copy = () => {
 
 exports.copy = copy;
 
+const remove = () => {
+    return gulp.src(`${dist}`, { read: false, allowEmpty: true })
+        .pipe(clean());
+};
+
+exports.remove = remove;
 
 // Server
 
 const server = () => {
     let files = [
-        'app/scss/**/*.scss'
+        `${src}/scss/**/*.scss`
     ]
     sync.init(files, {
         ui: false,
         notify: false,
         server: {
-            baseDir: 'html'
+            baseDir: `${dist}`
         }
     });
 };
@@ -169,12 +215,13 @@ exports.server = server;
 
 // Watch
 const watch = () => {
-    gulp.watch('app/html/**/*.+(html|njk|twig)', gulp.series(html));
-    gulp.watch('app/scss/**/*.scss', gulp.series(style, styleMin));
-    gulp.watch('app/js/**/*.js', gulp.series(js));
+    gulp.watch(`${src}/html/**/*.+(html|njk|twig)`, gulp.series(html));
+    gulp.watch(`${src}/scss/**/*.scss`, gulp.series(style, styleMin));
+    gulp.watch(`${src}/js/**/*.js`, gulp.series(js));
     gulp.watch([
-        'app/fonts/**/*',
-        'app/images/**/*',
+        `${src}/fonts/**/*`,
+        `${src}/images/**/*`,
+        `${src}/i/**/*`,
     ], gulp.series(copy));
 };
 
@@ -197,3 +244,14 @@ exports.default = gulp.series(
         server,
     ),
 );
+
+exports.deploy = gulp.parallel(
+    remove,
+    html,
+    style,
+    styleMin,
+    js,
+    // styleLibs,
+    // jsLibs,
+    copy,
+)

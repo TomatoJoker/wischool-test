@@ -1,16 +1,23 @@
+{#include style#}
 {% set title = 'Home' %}
-{% set stylePage = 'home' %}
+{% set stylesPage = ['home'] %}
 {% set stylesVendor = ['your-name-vendor-style-name'] %} {#include style vendor#}
+{% set scripts = ['home'] %}
+{% set scriptsVendor = ['your-name-vendor-script-name'] %} {#include style vendor#}
+
+{% import "components/card.njk" as macros %}
+{% set card = macros.card %}
 {% extends 'layouts/layout.njk' %}
+
 {% block content %}
     <div class="wrapper">
         {% include 'components/header.njk' %}
         <main class="main">
             <div class="container">
                 {% for i in range(1, 10) %}
-                    <div>
-                        {{ i }} Start
-                    </div>
+                    {% call card('test') %}
+                        {{ 1 }} Start
+                    {% endcall %}
                 {% endfor %}
             </div>
         </main>
