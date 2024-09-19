@@ -1,0 +1,42 @@
+%h1-title {
+  @include font-settings(36, 48);
+  @include min-media(1200) {
+    font-size: 70px;
+  }
+}
+
+%h2-title {
+  font-size: 32px;
+  line-height: decimal-round(60 / 52, 2);
+  @include min-media(1200) {
+    font-size: 52px;
+  }
+}
+
+%h3-title {
+  font-size: 28px;
+  line-height: decimal-round(42 / 30, 2);
+  @include min-media(1200) {
+    font-size: 30px;
+  }
+}
+
+%h4-title {
+  @include font-settings(20, 30);
+  @include min-media(1200) {
+    font-size: 22px;
+  }
+}
+
+%h5-title {
+  @include css-lock(16, 20, 480, 1920);
+  line-height: 22px;
+  @include min-media(1200) {
+    line-height: 24px;
+  }
+}
+
+%h6-title {
+  @include css-lock(14, 16, 480, 1920);
+  line-height: 20px;
+}

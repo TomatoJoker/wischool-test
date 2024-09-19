@@ -11,8 +11,10 @@ const gulp = require('gulp'),
     sourceMaps = require('gulp-sourcemaps'),
     sync = require('browser-sync'),
     nunjucks = require('gulp-nunjucks'),
-    data = require('gulp-data')
-reload = sync.reload;
+    data = require('gulp-data'),
+    removeEmptyLines = require('gulp-remove-empty-lines'),
+    htmlbeautify = require('gulp-html-beautify'),
+    reload = sync.reload;
 
 // --------------------------------------------If you need icon fonts
 // const iconfont = require('gulp-iconfont'),
@@ -41,13 +43,18 @@ reload = sync.reload;
 
 // html task
 const html = () => {
-  return gulp.src('app/html/*.+(html|njk|twig)')
-      .pipe(data(function() {
-        return require('./app/html/data/data.json')
-      }))
-      .pipe(nunjucks.compile())
-      .pipe(gulp.dest('./html'))
-      .pipe(reload({stream: true}));
+    const options = {
+        indentSize: 2
+    };
+    return gulp.src('app/html/*.+(html|njk|twig)')
+        .pipe(data(function () {
+            return require('./app/html/data/data.json')
+        }))
+        .pipe(nunjucks.compile())
+        .pipe(htmlbeautify(options))
+        .pipe(removeEmptyLines())
+        .pipe(gulp.dest('./html'))
+        .pipe(reload({stream: true}));
 }
 
 exports.html = html;
@@ -55,13 +62,13 @@ exports.html = html;
 // Styles
 
 const style = () => {
-  return gulp.src('app/scss/**/*.scss')
-      .pipe(plumber())
-      .pipe(sourceMaps.init())
-      .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-      .pipe(prefix('last 10 versions'))
-      .pipe(sourceMaps.write('/'))
-      .pipe(gulp.dest('html/css/'))
+    return gulp.src('app/scss/**/*.scss')
+        .pipe(plumber())
+        .pipe(sourceMaps.init())
+        .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+        .pipe(prefix('last 10 versions'))
+        .pipe(sourceMaps.write('/'))
+        .pipe(gulp.dest('html/css/'))
 };
 exports.style = style;
 
@@ -126,18 +133,18 @@ exports.js = js;
 // Copy
 
 const copy = () => {
-  return gulp.src([
-    'app/fonts/**/*',
-    'app/images/**/*',
-    'app/scss/**/*',
-    'app/i/**/*',
-  ], {
-    base: 'app'
-  })
-      .pipe(gulp.dest('html'))
-      .pipe(sync.stream({
-        once: true
-      }));
+    return gulp.src([
+        'app/fonts/**/*',
+        'app/images/**/*',
+        'app/scss/**/*',
+        'app/i/**/*',
+    ], {
+        base: 'app'
+    })
+        .pipe(gulp.dest('html'))
+        .pipe(sync.stream({
+            once: true
+        }));
 };
 
 exports.copy = copy;
@@ -146,29 +153,29 @@ exports.copy = copy;
 // Server
 
 const server = () => {
-  let files = [
-    'app/scss/**/*.scss'
-  ]
-  sync.init(files,{
-    ui: false,
-    notify: false,
-    server: {
-      baseDir: 'html'
-    }
-  });
+    let files = [
+        'app/scss/**/*.scss'
+    ]
+    sync.init(files, {
+        ui: false,
+        notify: false,
+        server: {
+            baseDir: 'html'
+        }
+    });
 };
 
 exports.server = server;
 
 // Watch
 const watch = () => {
-  gulp.watch('app/html/**/*.+(html|njk|twig)', gulp.series(html));
-  gulp.watch('app/scss/**/*.scss', gulp.series(style, styleMin));
-  gulp.watch('app/js/**/*.js', gulp.series(js));
-  gulp.watch([
-    'app/fonts/**/*',
-    'app/images/**/*',
-  ], gulp.series(copy));
+    gulp.watch('app/html/**/*.+(html|njk|twig)', gulp.series(html));
+    gulp.watch('app/scss/**/*.scss', gulp.series(style, styleMin));
+    gulp.watch('app/js/**/*.js', gulp.series(js));
+    gulp.watch([
+        'app/fonts/**/*',
+        'app/images/**/*',
+    ], gulp.series(copy));
 };
 
 exports.watch = watch;

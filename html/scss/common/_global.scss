@@ -1,0 +1,97 @@
+body {
+  font-size: 18px;
+  box-sizing: border-box;
+  background-color: $silver;
+  background-position: top center;
+  background-size: cover;
+  color: $primary;
+  font-family: DMSans, sans-serif;
+}
+
+span, a, p, strong, em, b {
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: $site-container;
+  width: 100%;
+  padding-left: $padding;
+  padding-right: $padding;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+*:focus, *:focus-visible {
+  outline: none !important;
+}
+
+h1, h2, h3, h4, h4, h6, .h1-title, .h2-title, .h3-title, .h4-title, .h5-title, .h6-title {
+  display: block;
+  font-weight: 700;
+}
+
+h1, .h1-title {
+  @extend %h1-title;
+}
+
+h2, .h2-title {
+  @extend %h2-title;
+}
+
+h3, .h3-title {
+  @extend %h3-title;
+}
+
+h4, .h4-title {
+  @extend %h4-title;
+}
+
+h5, .h5-title {
+  @extend %h5-title;
+}
+
+h6, .h6-title {
+  @extend %h6-title;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.button__full-reset {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.disable {
+  pointer-events: none !important;
+}

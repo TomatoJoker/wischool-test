@@ -7,7 +7,11 @@
         {% include 'components/header.njk' %}
         <main class="main">
             <div class="container">
-                Start
+                {% for i in range(1, 10) %}
+                    <div>
+                        {{ i }} Start
+                    </div>
+                {% endfor %}
             </div>
         </main>
         {% include 'components/footer.njk' %}
