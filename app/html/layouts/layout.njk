@@ -7,25 +7,33 @@
   <meta name="format-detection" content="telephone=no"/>
   <title>{{ title }}</title>
   <link rel="preload" href="/fonts/Montserrat/Montserrat-Regular.woff" as="font" type="font/woff" crossorigin="">
-  {% for style in stylesVendor %}
-    <link rel="stylesheet" type="text/css" href="./css/vendors/{{ style }}.min.css">
-  {% endfor %}
+  {% if stylesVendor %}
+    {% for style in stylesVendor %}
+      <link rel="stylesheet" type="text/css" href="./css/vendors/{{ style }}.min.css">
+    {% endfor %}
+  {% endif %}
   <link rel="stylesheet" type="text/css" href="./css/common.min.css">
-  {% for stylePage in stylesPage %}
-    <script src="js/{{ stylePage }}.min.css"></script>
-  {% endfor %}
+  {% if stylesPage %}
+    {% for stylePage in stylesPage %}
+      <link rel="stylesheet" type="text/css" href="./css/{{ stylePage }}.min.css">
+    {% endfor %}
+  {% endif %}
 </head>
 <body>
 {% set data = 'html/data/data.json' %}
 {% block content %}
 {% endblock %}
 
-{% for script in scriptsVendor %}
-  <script src="js/{{ script }}.min.js"></script>
-{% endfor %}
-{% for script in scripts %}
-  <script src="js/{{ script }}.min.js"></script>
-{% endfor %}
+{% if scriptsVendor %}
+  {% for script in scriptsVendor %}
+    <script src="js/{{ script }}.min.js"></script>
+  {% endfor %}
+{% endif %}
+{% if scripts %}
+  {% for script in scripts %}
+    <script src="js/{{ script }}.min.js"></script>
+  {% endfor %}
+{% endif %}
 <script src="js/common.min.js"></script>
 <!-- navigation js -->
 <script src="js/navigation.min.js"></script>
