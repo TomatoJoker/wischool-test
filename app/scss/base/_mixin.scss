@@ -121,6 +121,18 @@
   height: $height + px;
 }
 
+@mixin mt($value) {
+  &:not(:first-child) {
+    margin-top: $value;
+  }
+}
+
+@mixin mb($value) {
+  &:not(:last-child) {
+    margin-bottom: $value;
+  }
+}
+
 @mixin total-width($width) {
   min-width: $width + px;
   max-width: $width + px;
