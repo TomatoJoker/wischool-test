@@ -1,0 +1,35 @@
+.decor {
+  background: linear-gradient(to right, $decor-color 10%,transparent 60%);
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 107px;
+    z-index: 1;
+    background: $card;
+  }
+
+  &--desktop {
+    @include media($desktop) {
+      background: transparent;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &--mobile {
+    @include min-media($desktop) {
+      background: transparent;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

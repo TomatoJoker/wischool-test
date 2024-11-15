@@ -1,0 +1,12 @@
+.hero-wrapper {
+
+  @include media($desktop) {
+    margin-left: $padding;
+    margin-right: $padding;
+    margin-top: 10px;
+
+    .container {
+      padding: 0px;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+.our-pluses {
+  padding-top: 32px;
+  padding-bottom: 51px;
+
+  $gap-mob: 16px;
+  $gap: 48px;
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px $gap-mob;
+    position: relative;
+    z-index: 2;
+
+    @include min-media($desktop) {
+      justify-content: space-between;
+      gap: $gap;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    padding: 10px 8px;
+    background: $accent;
+    @include flex-basis-responsive(2, $gap-mob);
+
+    &:last-child {
+      flex-basis: auto;
+    }
+
+    @include min-media($desktop) {
+      padding-left: 17px;
+      padding-right: 17px;
+
+      &,
+      &:last-child {
+        flex-basis: auto;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 14px;
+    font-weight: inherit;
+
+    @include min-media($desktop) {
+      font-size: inherit;
+    }
+  }
+
+  &__icon-wrapper {
+    flex-shrink: 0;
+    @include size(40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: $primary;
+    color: $light;
+  }
+
+  &__icon {
+
+  }
+}
