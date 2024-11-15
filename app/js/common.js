@@ -45,6 +45,9 @@ burgerBtn.addEventListener('click', (e) => {
     e.target.classList.toggle('header__burger--active');
     burger.classList.toggle('menu--open');
     body.classList.toggle('lock');
+
+    const isExpanded = e.target.getAttribute('aria-expanded') === 'true';
+    e.target.setAttribute('aria-expanded', !isExpanded);
 })
 
 const togglePassword = () => {

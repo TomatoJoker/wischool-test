@@ -10,10 +10,10 @@
                     <img src="./images/logo.svg" width="132" height="41" alt="Logo">
                 </a>
                 <div class="header__menu">
-                    <button data-burger="btn" class="header__burger btn-full-reset" type="button">
+                    <button data-burger="btn" class="header__burger btn-full-reset" type="button" aria-controls="menu"  aria-expanded="false" aria-label="Open menu">
                         <span></span>
                     </button>
-                    <ul data-burger="menu" class="menu">
+                    <ul id="menu" data-burger="menu" class="menu">
                         {% for menuItem in menuData %}
                             <li class="menu-item">
                                 <a href="#">{{ menuItem }}</a>
@@ -36,7 +36,7 @@
                         <button data-modal-registration="btn" class="btn-full-reset btn btn__small" type="button">Register</button>
                     </li>
                     <li class="header__sign-up-mobile">
-                        <button type="button" data-modal-registration="btn" class="btn-full-reset">
+                        <button type="button" data-modal-registration="btn" class="btn-full-reset" aria-label="Open registration window">
                             <svg width="32" height="32">
                                 <use href="./sprite/sprite.svg#avatar"></use>
                             </svg>
