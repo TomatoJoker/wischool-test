@@ -1,0 +1,180 @@
+.hero {
+  padding-top: 63px;
+  padding-bottom: 32px;
+
+  @include min-media($desktop) {
+    padding-top: 58px;
+    padding-bottom: 40px;
+  }
+
+  &__inner {
+    position: relative;
+
+    @include min-media($desktop) {
+      overflow: hidden;
+      border-radius: 50px;
+      padding: 50px 40px 30px 60px;
+    }
+  }
+
+  &__row {
+    position: relative;
+    z-index: 2;
+
+    @include min-media($desktop) {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+
+  &__left {
+    margin-bottom: 64px;
+    max-width: 300px;
+
+    @include min-media($desktop) {
+      max-width: 551px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+
+    span {
+      color: $primary;
+    }
+
+  }
+
+  &__right {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+    position: relative;
+  }
+
+  &__info-bar {
+    position: absolute;
+    z-index: 2;
+
+    p {
+      font-size: 12px;
+
+      @include media($desktop) {
+        font-size: 8px;
+      }
+
+    }
+
+    &--right {
+      right: 27px;
+      bottom: 19px;
+
+      @include min-media($desktop) {
+        right: -20px;
+        bottom: 33px;
+      }
+    }
+
+    &--left {
+      left: 5px;
+      bottom: 57px;
+
+      @include min-media($desktop) {
+        left: 0;
+        bottom: 95px;
+      }
+    }
+
+    a {
+      color: $primary;
+      @include transition;
+
+      @include hover {
+        color: rgba($primary, 0.7);
+      }
+    }
+  }
+
+  &__img {
+    border-radius: 40px 40px 100px 40px;
+    position: relative;
+    z-index: 1;
+
+    @include media($desktop) {
+      @include min-media($small-tablet) {
+        width: 90%;
+        height: 550px;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
+  }
+
+  &__btn-wrapper {
+    margin-top: 20px;
+
+    @include min-media($desktop) {
+      margin-top: 48px;
+    }
+  }
+
+  &__clients {
+    display: flex;
+    max-width: 89px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+    @include min-media($desktop) {
+      max-width: 165px;
+    }
+  }
+
+  &__clients-item {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    margin-left: -11px;
+    flex-grow: 0;
+    border: 3px solid $light;
+    border-radius: 50%;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 27px;
+
+    @include min-media($desktop) {
+      margin-left: -21px;
+    }
+
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    @include min-media($desktop) {
+      width: 50px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__info-amount {
+    color: $primary;
+  }
+
+  &__info-icon {
+    @include size(30, 30);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #E1FFEE;
+    border-radius: 50%;
+    color: $primary;
+    margin-bottom: 3px;
+  }
+}

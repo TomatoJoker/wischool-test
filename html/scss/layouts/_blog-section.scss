@@ -1,0 +1,156 @@
+.blog-section {
+  padding-top: 24px;
+
+  @include min-media($desktop) {
+    padding-top: 48px;
+  }
+
+  &__heading-row {
+    align-items: center;
+  }
+
+  $gap-mob: 16px;
+  $gap: 32px;
+  &__row {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+
+    @include min-media($desktop) {
+      margin-top: 65px;
+      gap: 40px $gap;
+    }
+  }
+
+  &__item {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 0 rgba(203, 203, 203, 0.25);
+    @include flex-basis-responsive(2, $gap-mob);
+
+    @include min-media($desktop) {
+      @include flex-basis-responsive(3, $gap);
+    }
+  }
+
+  &__item-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &:hover {
+      position: relative;
+
+      img {
+        transform: scale(1.2);
+      }
+    }
+
+  }
+
+  &__image img {
+    @include transition;
+    position: relative;
+    z-index: 1;
+    height: auto;
+    width: 100%;
+  }
+
+  &__item-bottom {
+    padding: 2px 14px 9px;
+    position: relative;
+    z-index: 2;
+    background: $light;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    @include min-media($desktop) {
+      padding: 24px;
+      padding-bottom: 22px;
+    }
+  }
+
+  &__item-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 5px;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 6px;
+    position: relative;
+    top: 3px;
+
+    .icon {
+      color: $primary;
+    }
+  }
+
+  &__item-statistics {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+    padding-top: 4px;
+    flex-grow: 1;
+    justify-content: space-between;
+
+    @include min-media($desktop) {
+      margin-top: auto;
+      flex-grow: 0;
+      padding-top: 36px;
+      align-items: baseline;
+    }
+  }
+
+  &__item-statistics-left {
+    display: flex;
+    gap: 5px;
+
+    @include min-media($desktop) {
+      gap: 18px;
+    }
+  }
+
+  &__time,
+  &__amount,
+  &__title {
+    color: $dark-light;
+  }
+
+  &__time,
+  &__amount {
+    font-size: 12px;
+    font-weight: 400;
+
+    @include min-media($desktop) {
+      font-size: inherit;
+      font-weight: 500;
+    }
+  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+      color: $primary;
+    }
+  }
+
+  &__price {
+    color: $primary;
+
+    @include media($desktop) {
+      font-size: 14px;
+    }
+  }
+}

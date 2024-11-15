@@ -129,16 +129,16 @@ exports.styleMin = styleMin;
 
 // Styles libs
 
-// const styleLibs = () => {
-//   return gulp.src(
-//       [
-//         './node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css',
-//       ]
-//   )
-//       .pipe(cleanCSS())
-//       .pipe(gulp.dest(`${dist}/css/vendors/`));
-// };
-// exports.styleLibs = styleLibs;
+const styleLibs = () => {
+  return gulp.src(
+      [
+        './node_modules/swiper/swiper-bundle.min.css',
+      ]
+  )
+      .pipe(cleanCSS())
+      .pipe(gulp.dest(`${dist}/css/vendors/`));
+};
+exports.styleLibs = styleLibs;
 
 
 // Scripts
@@ -159,16 +159,16 @@ const js = () => {
 exports.js = js;
 
 // Scripts libs
-// const jsLibs = () => {
-//   return gulp.src(
-//       [
-//         'node_modules/jquery/dist/jquery.min.js',
-//       ]
-//   )
-//       .pipe(gulp.dest(`${dist}/js/`));
-// };
-//
-// exports.jsLibs = jsLibs;
+const jsLibs = () => {
+  return gulp.src(
+      [
+        './node_modules/swiper/swiper-bundle.min.js',
+      ]
+  )
+      .pipe(gulp.dest(`${dist}/js/`));
+};
+
+exports.jsLibs = jsLibs;
 
 // Copy
 
@@ -235,8 +235,8 @@ exports.default = gulp.series(
         style,
         styleMin,
         js,
-        // styleLibs,
-        // jsLibs,
+        styleLibs,
+        jsLibs,
         copy,
     ),
     gulp.parallel(

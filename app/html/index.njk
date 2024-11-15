@@ -1,26 +1,245 @@
-{#include style#}
+{# include style #}
 {% set title = 'Home' %}
 {% set stylesPage = ['home'] %}
-{% set stylesVendor = ['your-name-vendor-style-name'] %} {#include style vendor#}
+{% set stylesVendor = ['swiper-bundle'] %}  {#include style vendor#}
 {% set scripts = ['home'] %}
-{% set scriptsVendor = ['your-name-vendor-script-name'] %} {#include style vendor#}
+{% set scriptsVendor = ['swiper-bundle'] %}  {#include style vendor#}
 
-{% import "components/card.njk" as macros %}
-{% set card = macros.card %}
 {% extends 'layouts/layout.njk' %}
 
 {% block content %}
     <div class="wrapper">
         {% include 'components/header.njk' %}
         <main class="main">
-            <div class="container">
-                {% for i in range(1, 10) %}
-                    {% call card('test') %}
-                        {{ 1 }} Start
-                    {% endcall %}
-                {% endfor %}
+            <div class="hero-wrapper decor decor--mobile">
+                <section class="hero">
+                    <div class="container">
+                        <div class="hero__inner decor decor--desktop">
+                            <div class="hero__row">
+                                <div class="hero__left">
+                                    <h1 class="hero__title h1-title">Quality <span>Education</span> By Any Means
+                                        Necessary.</h1>
+                                    <div class="hero__btn-wrapper">
+                                        <a class="btn" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <div class="hero__right">
+                                    <div class="hero__info-bar hero__info-bar--left card">
+                                        <p class="h4-title">Learn from best <a href="#">instructors</a> around the globe</p>
+                                        <ul class="hero__clients">
+                                            {% for item in range(0, 5) %}
+                                                <li class="hero__clients-item">
+                                                    <img src="./images/client.jpg" width="50" height="50" alt="">
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="hero__info-bar hero__info-bar--right card card--small">
+                                        <div class="hero__info-icon">
+                                            <svg class="icon" width="16" height="16">
+                                                <use href="./sprite/sprite.svg#person"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="hero__info-amount h3-title">15k</div>
+                                        <p>Amazing students around the globe</p>
+                                    </div>
+                                    <img class="hero__img" src="./images/hero-img.jpg" width="431" height="508" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="our-pluses">
+                    <div class="container">
+                        <h2 class="h2-title visually-hidden">Our pluses</h2>
+                        <ul class="our-pluses__row">
+                            {% set plusesList = [
+                                {
+                                    title: 'Problem Solving',
+                                    icon: 'function'
+                                },
+                                {
+                                    title: 'Live chat',
+                                    icon: 'chat'
+                                },
+                                {
+                                    title: 'Group Reading',
+                                    icon: 'people'
+                                },
+                                {
+                                    title: '10k Courses',
+                                    icon: 'book'
+                                },
+                                {
+                                    title: 'Hand-on activities',
+                                    icon: 'hands'
+                                }
+                            ] %}
+                            {% for listItem in plusesList %}
+                                <li class="our-pluses__item">
+                                    <div class="our-pluses__icon-wrapper">
+                                        <svg class="icon{{ ' icon--stroke' if loop.index == 1 or loop.index == 2 }}"
+                                             width="24" height="24">
+                                            <use href="./sprite/sprite.svg#{{ listItem.icon }}"></use>
+                                        </svg>
+                                    </div>
+                                    <h3 class="our-pluses__title">{{ listItem.title }}</h3>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
             </div>
+            <section class="categories">
+                <div class="container">
+                    <div class="categories__heading-row heading-row">
+                        <h2 class="h2-title heading">Choose favourite course from top cartegories</h2>
+                        <a class="link" href="#">
+                            See all
+                        </a>
+                    </div>
+                    <div class="categories__slider swiper js-categories-slider">
+                        {% set catList = [
+                            {
+                                title: 'Marketing',
+                                img: 'image-8'
+                            },
+                            {
+                                title: 'Design',
+                                img: 'Component-23'
+                            },
+                            {
+                                title: 'Programming',
+                                img: 'Component-24'
+                            },
+                            {
+                                title: 'Technology',
+                                img: 'Component-25'
+                            },
+                            {
+                                title: 'Cooking',
+                                img: 'Component-26'
+                            },
+                            {
+                                title: 'Helth and Care',
+                                img: 'Component-27'
+                            },
+                            {
+                                title: 'Photography',
+                                img: 'Component-28'
+                            }
+                        ] %}
+                        <ul class="categories__slider-inner swiper-wrapper">
+                            {% for item in catList %}
+                                <li class="categories__item swiper-slide">
+                                    <div class="categories__img">
+                                        <img src="./images/{{ item.img }}.jpg" width="291" height="432" alt="">
+                                    </div>
+                                    <h3 class="categories__item-title h2-title">{{ item.title }}</h3>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <button type="button" class="categories__btn swiper-button-next" aria-label="next-slide">
+                            <svg class="icon" width="30" height="30">
+                                <use href="./sprite/sprite.svg#arrow-right"></use>
+                            </svg>
+                        </button>
+                        <button type="button" class="categories__btn swiper-button-prev" aria-label="next-slide">
+                            <svg class="icon" width="30" height="30">
+                                <use href="./sprite/sprite.svg#arrow-left"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-section">
+                <div class="container">
+                    <div class="blog-section__heading-row heading-row">
+                        <h2 class="h2-title heading">Most Popular courses</h2>
+                        <div class="sort">
+                            <button type="button" class="sort__top">
+                                <svg class="icon" width="30" height="30">
+                                    <use href="./sprite/sprite.svg#sort"></use>
+                                </svg>
+                                Sort by
+                            </button>
+                            <ul class="sort__list">
+                                <li class="sort__item">
+                                    <button class="btn-full-reset" type="button">by date</button>
+                                </li>
+                                <li class="sort__item">
+                                    <button class="btn-full-reset" type="button">by price</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% set blogList = [
+                        {
+                            title: 'Learn Marketing from Top Instructors.',
+                            img: 'Frame-6530'
+                        },
+                        {
+                            title: 'Front-end development is not hard as you think',
+                            img: 'Frame-6531'
+                        },
+                        {
+                            title: 'Everrything you need to know in UX',
+                            img: 'Frame-6532'
+                        },
+                        {
+                            title: 'Learn photography with ease',
+                            img: 'Frame-6533'
+                        },
+                        {
+                            title: 'Be a pro in data analysis',
+                            img: 'Frame-6534'
+                        },
+                        {
+                            title: 'Ethical Harking is not hard as you think',
+                            img: 'Frame-6535'
+                        }
+                    ] %}
+                    <ul class="blog-section__row">
+                        {% for item in blogList %}
+                            <li class="blog-section__item">
+                                <a class="blog-section__item-inner" href="#">
+                                    <div class="blog-section__image">
+                                        <img src="./images/{{ item.img }}.jpg" width="391" height="215" alt="">
+                                    </div>
+                                    <div class="blog-section__item-bottom">
+                                        <div class="blog-section__item-heading">
+                                            <h3 class="blog-section__title h3-title">{{ item.title }}</h3>
+                                            <div class="blog-section__rating">
+                                                <svg class="icon" width="18" height="18">
+                                                    <use href="./sprite/sprite.svg#star"></use>
+                                                </svg>
+                                                4.5
+                                            </div>
+                                        </div>
+                                        <div class="blog-section__item-statistics">
+                                            <div class="blog-section__item-statistics-left">
+                                                <div class="blog-section__time">
+                                                    6 weeks
+                                                </div>
+                                                <div class="blog-section__amount">
+                                                    <svg width="16" height="16" class="icon">
+                                                        <use href="./sprite/sprite.svg#people"></use>
+                                                    </svg>
+                                                    1.5k Students
+                                                </div>
+                                            </div>
+                                            <div class="blog-section__price h4-title">
+                                                30.5$
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
         </main>
-        {% include 'components/footer.njk' %}
+        {% include 'components/modal.njk' %}
     </div>
 {% endblock %}

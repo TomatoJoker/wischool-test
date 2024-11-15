@@ -134,13 +134,13 @@
 }
 
 @mixin total-width($width) {
-  min-width: $width + px;
-  max-width: $width + px;
+  min-width: $width;
+  max-width: $width;
 }
 
 @mixin total-height($height) {
-  min-width: $heigh + px;
-  max-width: $heigh + px;
+  min-width: $heigh;
+  max-width: $heigh;
 }
 
 // fonts
@@ -148,8 +148,7 @@
   @font-face {
     font-family: #{$fontName};
     font-display: swap;
-    src: url("../fonts/#{$folderName}/#{$fileName}.woff") format("woff"),
-         url("../fonts/#{$folderName}/#{$fileName}.woff2") format("woff2");
+    src: url("../fonts/#{$folderName}/#{$fileName}.woff2") format("woff2");
     font-weight: #{$weight};
     font-style: #{$style};
   }

@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  align-items: center;
+
+  &-item {
+
+    a {
+      @include transition;
+
+      @include hover {
+        color: $primary;
+      }
+
+    }
+
+  }
+}

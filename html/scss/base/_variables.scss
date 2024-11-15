@@ -1,11 +1,17 @@
 // Colors
 $light: #fff;
 $dark: #000;
-$transparent: rgba(255, 255, 255, 0);
-$primary: #ffa900;
+$dark-light: #333;
+$primary: #09B451;
+$accent: #DDFFFF;
+$decor-color: #d5dcd8;
+$card: #E4FFFF;
 
 $speed: 300ms;
 $time-function: ease-in-out;
+
+$desktop: 1200;
+$small-tablet: 576;
 
 :root {
   --speed: #{$speed};
@@ -14,7 +20,7 @@ $time-function: ease-in-out;
 }
 
 //layout
-$padding: 20px;
-$desktop-width: 1642px;
+$padding: 24px;
+$desktop-width: 1240px;
 $site-container: $desktop-width + ($padding * 2);
 

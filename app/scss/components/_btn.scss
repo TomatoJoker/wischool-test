@@ -1,5 +1,21 @@
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: $primary;
+  padding: 20px 42px;
+  font-family: 'SourceSansPro', sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: $light;
+  border-radius: 5px;
+  @include transition;
+
+  &__small {
+    padding: 12px 24px;
+  }
 
   &,
   &:focus {
@@ -7,6 +23,7 @@
   }
 
   @include hover {
-    background: $transparent;
+    background: transparent;
+    color: $dark;
   }
 }

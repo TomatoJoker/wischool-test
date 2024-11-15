@@ -1,0 +1,60 @@
+.sort {
+  position: relative;
+  z-index: 2;
+
+  &--active {
+    .sort__list {
+      transform: scaleY(1) translateY(calc(100% - 30px));
+      opacity: 1;
+    }
+
+    .sort__top .icon {
+      transform: scaleY(-1);
+    }
+  }
+
+  &__top,
+  &__list {
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+  }
+
+  &__top {
+    z-index: 2;
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: $light;
+    padding: 8px;
+    background: $primary;
+    border-radius: 50px;
+    cursor: pointer;
+
+    .icon {
+      @include transition;
+    }
+  }
+
+  &__list {
+    z-index: 1;
+    transform: scaleY(0);
+    @include transition;
+    box-shadow: 0 0 20px 0 rgba(203, 203, 203, 0.25);
+    border-radius: 0 0 15px 15px;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    transform: scaleY(0) translateY(calc(100% - 30px));
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    opacity: 0;
+    background: $light;
+  }
+
+  &__item {
+    @include mb(5px);
+  }
+}

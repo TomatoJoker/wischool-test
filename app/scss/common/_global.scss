@@ -1,12 +1,15 @@
 body {
-  font-size: 18px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   background-color: $light;
   background-position: top center;
   background-size: cover;
+  color: $dark;
 }
 
-span, a, p, strong, em, b {
+span, a, p, strong, em, b,
+h1, h2, h3, h4, h4, h6, .h1-title, .h2-title, .h3-title, .h4-title, .h5-title, .h6-title {
   line-height: 1.5;
 }
 
@@ -33,27 +36,38 @@ h1, h2, h3, h4, h4, h6, .h1-title, .h2-title, .h3-title, .h4-title, .h5-title, .
 }
 
 h1, .h1-title {
-  @extend %h1-title;
+  font-size: 32px;
+
+  @include min-media($desktop) {
+    font-size: 60px;
+  }
+
 }
 
 h2, .h2-title {
-  @extend %h2-title;
+  font-size: 16px;
+  font-weight: 600;
+
+  @include min-media($desktop) {
+    font-size: 32px;
+  }
 }
 
 h3, .h3-title {
-  @extend %h3-title;
+  font-size: 14px;
+  font-weight: 500;
+
+  @include min-media($desktop) {
+    font-size: 24px;
+  }
 }
 
 h4, .h4-title {
-  @extend %h4-title;
-}
+  font-size: 10px;
 
-h5, .h5-title {
-  @extend %h5-title;
-}
-
-h6, .h6-title {
-  @extend %h6-title;
+  @include min-media($desktop) {
+    font-size: 20px;
+  }
 }
 
 .wrapper {
@@ -71,6 +85,25 @@ h6, .h6-title {
   padding: 0;
   border: 0;
   background-color: transparent;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="password"]{
+  padding: 12px 24px;
+  border: 1px solid $dark;
+  box-shadow: none;
+  outline: none;
+  width: 230px;
+  @include transition;
+  font-size: 14px;
+  border-radius: 5px;
+
+  &:focus {
+    border-color: $primary;
+  }
 }
 
 .hidden {
@@ -92,4 +125,23 @@ h6, .h6-title {
 
 .disable {
   pointer-events: none !important;
+}
+
+.link {
+  color: $dark-light;
+  @include transition;
+
+  @include hover {
+    color: $primary;
+  }
+}
+
+.heading {
+  @include media($desktop) {
+    max-width: 225px;
+  }
+}
+
+.lock {
+  overflow: hidden;
 }

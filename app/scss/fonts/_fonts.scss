@@ -1,3 +1,7 @@
 /*--------- font-face ---------*/
 //@mixin font($weight, $style, $fontName, $fileName, $folderName: $fontName)
-@include font(400, normal, 'DMSans', 'DMSans-Regular');
+@include font(400, normal, 'Poppins', 'Poppins-Regular');
+@include font(500, normal, 'Poppins', 'Poppins-Medium');
+@include font(600, normal, 'Poppins', 'Poppins-SemiBold');
+@include font(700, normal, 'Poppins', 'Poppins-Bold');
+@include font(600, normal, 'SourceSansPro', 'SourceCodePro-SemiBold');
